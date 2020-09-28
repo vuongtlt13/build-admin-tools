@@ -1,0 +1,15 @@
+version: '3'
+services:
+  #MySQL Service
+  mysql:
+    image: mysql:5.7.22
+    container_name: mysql-admin-tool
+    ports:
+      - "${DB_PORT}:3306"
+    volumes:
+      - ./data/mysql/:/var/lib/mysql/
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
