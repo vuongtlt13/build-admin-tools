@@ -1,5 +1,12 @@
 const BAD_PAYLOAD = 422;
 
+String.prototype.format = function () {
+    let i = 0, args = arguments;
+    return this.replace(/%s/g, function () {
+        return typeof args[i] != 'undefined' ? args[i++] : '';
+    });
+};
+
 const parseNumber = (data, c=2, d=".", t=",") => {
     return parseInt(String(data).split(t).join(''));
 }
@@ -55,15 +62,22 @@ const mergeAjaxOptions = (options, defaultAjaxOptions) => {
     }
 }
 
-const sendAjax = (url, data, type = 'get', onSuccess=defaultOnSuccess, onFail=defaultOnError, onComplete=defaultOnCompleted, beforeSend=defaultOnBeforeSend) => {
+const sendAjax = (url, data, type = 'get', options = null) => {
+    const ajaxOptions = {
+        ...defaultAjaxOptions,
+    }
+    if (options === null) options = ajaxOptions;
+    else options = mergeAjaxOptions(options, ajaxOptions)
     $.ajax({
         url: url,
         type: type,
         data: data,
-        beforeSend: beforeSend,
-        success: onSuccess,
-        error: onFail,
-        complete: onComplete
+        beforeSend: options.onBeforeSend,
+        success: function (resp) {
+            options.onSuccess(resp, options.table, options.modal);
+        },
+        error: options.onError,
+        complete: options.onCompleted
     });
 };
 
@@ -93,4 +107,108 @@ const sendFormAjax = (jQueryForm, options = null) => {
         error: options.onError,
         complete: options.onCompleted
     });
+}
+
+const resetForm = (form) => {
+    form.find('input').each(function (index, ele) {
+        let jqueryObj = $(ele);
+        let value = jqueryObj.data('defaultValue') || null;
+
+        if ((!jqueryObj.hasClass('ignore-reset')) &&  (jqueryObj.attr('type') !== 'checkbox')) jqueryObj.val(value);
+    });
+
+    form.find('select').each(function (index, ele) {
+        let jqueryObj = $(ele);
+        let value = jqueryObj.data('defaultValue') || null;
+        if (!jqueryObj.hasClass('ignore-reset')) {
+            jqueryObj.val(value);
+            if (jqueryObj.hasClass('select2')) jqueryObj.trigger('change');
+        }
+    });
+};
+
+const fillEditForm = (data, form) => {
+    let templateAction = form.data('templateAction');
+    form.attr('action', templateAction.format(data.id));
+
+    form.find('textarea').each(function (index, ele) {
+        let jqueryObj = $(ele);
+        if (jqueryObj[0].hasAttribute('data-column')) {
+            let dataField =  jqueryObj.attr('data-column');
+            if (jqueryObj.attr('data-role') === 'tagsinput') {
+                jqueryObj.tagsinput('removeAll');
+                jqueryObj.tagsinput('add', data[dataField]);
+            }
+            else jqueryObj.val(data[dataField]);
+        }
+    });
+
+    form.find('input').each(function (index, ele) {
+        let jqueryObj = $(ele);
+        if (jqueryObj[0].hasAttribute('data-column')) {
+            let dataField =  jqueryObj.attr('data-column');
+            if (jqueryObj.attr('data-role') === 'tagsinput') {
+                jqueryObj.tagsinput('removeAll');
+                jqueryObj.tagsinput('add', data[dataField]);
+            }
+            else if (jqueryObj.attr('type') === 'checkbox') jqueryObj.prop('checked', data[dataField] == 1);
+            else jqueryObj.val(data[dataField]);
+        }
+    });
+
+    form.find('select').each(function (index, ele) {
+        let jqueryObj = $(ele);
+        if (jqueryObj[0].hasAttribute('data-column')) {
+            let dataField =  jqueryObj.attr('data-column');
+            jqueryObj.val(data[dataField]);
+            if (jqueryObj.hasClass('select2'))
+                jqueryObj.trigger('change');
+        }
+    });
+}
+
+const editRecord = (ele, editForm) => {
+    let table = $(ele).closest('table').DataTable();
+    let row = $(ele).closest('tr');
+    let data = table.row(row).data();
+    fillEditForm(data, editForm);
+    editForm.closest('div.modal').modal('show');
+}
+
+const deleteRecord = (ele, uri) => {
+    let table = $(ele).closest('table').DataTable();
+    let row = $(ele).closest('tr');
+    let id = table.row(row).data().id;
+
+    sendAjax(uri.format(id), {
+        '_method': 'DELETE',
+    }, 'post', {
+        table: table
+    })
+}
+
+const fnRowCallBack = ( ele, data, rowIndex, selectedRows) => {
+    let row = $(ele);
+    if ( $.inArray(data.id, selectedRows) !== -1 ) {
+        if (!row.hasClass('selected_row')) row.addClass('selected_row');
+    } else {
+        if (row.hasClass('selected_row')) row.removeClass('selected_row');
+    }
+};
+
+const initDatatableEvent = (tableSelector, selectedRows) => {
+    let table = $(tableSelector).DataTable();
+
+    $(tableSelector).on( 'click', 'tbody tr', function (evt) {
+        if ($(evt.target).closest('button').hasClass('datatable-action')) return;
+
+        let id = table.row(this).data().id;
+        let index = $.inArray(id, selectedRows);
+        $(this).toggleClass('selected_row');
+        if ($(this).hasClass('selected_row')) {
+            if ( index === -1 ) selectedRows.push( id );
+        } else {
+            if ( index !== -1 ) selectedRows.splice(index, 1);
+        }
+    } );
 }
