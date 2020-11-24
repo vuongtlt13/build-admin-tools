@@ -108,6 +108,8 @@
     <script src="/vendor/plugins/chart.js/Chart.min.js"></script>
     <!-- Sparkline -->
     <script src="/vendor/plugins/sparklines/sparkline.js"></script>
+    <!-- Sweet Alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- JQVMap -->
     <script src="/vendor/plugins/jqvmap/jquery.vmap.min.js"></script>
     <script src="/vendor/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>

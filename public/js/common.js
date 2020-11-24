@@ -175,16 +175,43 @@ const editRecord = (ele, editForm) => {
     editForm.closest('div.modal').modal('show');
 }
 
-const deleteRecord = (ele, uri) => {
-    let table = $(ele).closest('table').DataTable();
-    let row = $(ele).closest('tr');
-    let id = table.row(row).data().id;
+const defaultConfirmOption = {
+    mainText: "Are you sure?",
+    detailText: "",
+    cancel: "Cancel",
+    agree: "OK",
+    icon: "warning",
+}
 
-    sendAjax(uri.format(id), {
-        '_method': 'DELETE',
-    }, 'post', {
-        table: table
-    })
+const confirmBox = async (options = {}) => {
+    let finalOptions = {
+        ...options,
+        ...defaultConfirmOption
+    }
+    let res = await swal({
+        title: finalOptions.mainText,
+        text: finalOptions.detailText,
+        icon: finalOptions.icon,
+        buttons: [finalOptions.cancel, finalOptions.agree],
+        dangerMode: true,
+    });
+    return res;
+}
+
+const deleteRecord = async (ele, uri, isConfirm=true, options = {}) => {
+    let isConfirmed = true;
+    if (isConfirm) isConfirmed = await confirmBox(options);
+    if (isConfirmed) {
+        let table = $(ele).closest('table').DataTable();
+        let row = $(ele).closest('tr');
+        let id = table.row(row).data().id;
+
+        sendAjax(uri.format(id), {
+            '_method': 'DELETE',
+        }, 'post', {
+            table: table
+        })
+    }
 }
 
 const fnRowCallBack = ( ele, data, rowIndex, selectedRows) => {
