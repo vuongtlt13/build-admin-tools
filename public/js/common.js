@@ -175,14 +175,6 @@ const editRecord = (ele, editForm) => {
     editForm.closest('div.modal').modal('show');
 }
 
-const defaultConfirmOption = {
-    mainText: "Are you sure?",
-    detailText: "",
-    cancel: "Cancel",
-    agree: "OK",
-    icon: "warning",
-}
-
 const confirmBox = async (options = {}) => {
     let finalOptions = {
         ...options,
