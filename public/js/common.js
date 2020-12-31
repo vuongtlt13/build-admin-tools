@@ -178,16 +178,15 @@ const editRecord = (ele, editForm) => {
 const confirmBox = async (options = {}) => {
     let finalOptions = {
         ...options,
-        ...defaultConfirmOption
+        ...defaultConfirmOptions
     }
-    let res = await swal({
+    return await swal({
         title: finalOptions.mainText,
         text: finalOptions.detailText,
         icon: finalOptions.icon,
         buttons: [finalOptions.cancel, finalOptions.agree],
         dangerMode: true,
     });
-    return res;
 }
 
 const deleteRecord = async (ele, uri, isConfirm=true, options = {}) => {

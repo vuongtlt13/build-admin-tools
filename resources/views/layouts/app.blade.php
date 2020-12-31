@@ -127,6 +127,15 @@
     <!-- AdminLTE App -->
     <script src="/vendor/dist/js/adminlte.js"></script>
     <!-- Common -->
+    <script type="text/javascript">
+        const defaultConfirmOptions = {
+            mainText: "@lang("crud.are_you_sure")",
+            detailText: "@lang("crud.confirm_delete_text")",
+            cancel: "@lang("crud.cancel")",
+            agree: "@lang("crud.agree")",
+            icon: "warning",
+        }
+    </script>
     <script src="/js/common.js"></script>
     <!-- Ajax Form -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
