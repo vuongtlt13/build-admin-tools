@@ -4,7 +4,6 @@ return [
 
     'add_new'      => 'Add New',
     'cancel'       => 'Cancel',
-    'agree'        => 'OK',
     'save'         => 'Save',
     'edit'         => 'Edit',
     'detail'       => 'Detail',
@@ -15,5 +14,4 @@ return [
     'updated_at'   => 'Updated At',
     'deleted_at'   => 'Deleted At',
     'are_you_sure' => 'Are you sure?',
-    'confirm_delete_text' => 'Are you sure deleting the current record, choose OK to delete'
 ];
