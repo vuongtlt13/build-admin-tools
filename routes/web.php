@@ -21,3 +21,28 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->middleware('verified');
+
+
+Route::resource('dBConfigs', 'DBConfigController');
+
+Route::resource('models', 'ModelController');
+
+Route::resource('fields', 'FieldController');
+
+Route::resource('menus', 'MenuController');
+
+Route::resource('dBConfigs', 'DBConfigController');
+
+Route::resource('dtConfigs', 'DtConfigController');
+
+Route::resource('cRUDConfigs', 'CRUDConfigController');
+
+Route::resource('dTConfigs', 'DTConfigController');
+
+Route::resource('relations', 'RelationController');
+
+Route::resource('langs', 'LangController');
+
+Route::resource('translationFiles', 'TranslationFileController');
+
+Route::resource('translations', 'TranslationController');
