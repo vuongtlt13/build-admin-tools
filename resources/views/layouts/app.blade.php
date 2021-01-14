@@ -31,6 +31,9 @@
     <link rel="stylesheet" href="/css/common.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/vendor/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="/vendor/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     @stack('css')
 </head>
 
@@ -124,6 +127,8 @@
     <script src="/vendor/plugins/summernote/summernote-bs4.min.js"></script>
     <!-- overlayScrollbars -->
     <script src="/vendor/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- Select2 -->
+    <script src="/vendor/plugins/select2/js/select2.full.min.js"></script>
     <!-- AdminLTE App -->
     <script src="/vendor/dist/js/adminlte.js"></script>
     <!-- Common -->

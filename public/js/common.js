@@ -177,8 +177,8 @@ const editRecord = (ele, editForm) => {
 
 const confirmBox = async (options = {}) => {
     let finalOptions = {
+        ...defaultConfirmOptions,
         ...options,
-        ...defaultConfirmOptions
     }
     return await swal({
         title: finalOptions.mainText,
