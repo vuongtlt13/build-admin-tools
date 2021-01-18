@@ -8,22 +8,31 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class Application
  * @package App\Models
- * @version January 15, 2021, 10:42 am UTC
+ * @version January 18, 2021, 9:49 am UTC
  *
  * @property string $name
  * @property string $description
- * @property string $deleted_at
  */
 class Application extends EloquentModel
 {
-        use SoftDeletes;
+    use SoftDeletes;
+
+
+    
+    const CREATED_AT = 'created_at';
+    const UPDATED_AT = 'updated_at';
+
+    const DELETED_AT = 'deleted_at';
+
+    
+    protected $dates = ['deleted_at'];
+
 
     public $table = 'applications';
 
     public $fillable = [
         'name',
-        'description',
-        'deleted_at'
+        'description'
     ];
 
     
@@ -33,8 +42,10 @@ class Application extends EloquentModel
      * @var array
      */
     protected $casts = [
+        'id' => 'integer',
         'name' => 'string',
-        'description' => 'string'
+        'description' => 'string',
+        'deleted_at' => 'timestamp'
     ];
 
     

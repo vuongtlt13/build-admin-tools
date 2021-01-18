@@ -26,10 +26,7 @@ class CreateApplicationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'created_at' => 'required',
-            'updated_at' => 'required',
-            'deleted_at' => 'required'
+            'name' => 'required'
         ];
     }
 }

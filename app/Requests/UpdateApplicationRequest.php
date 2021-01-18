@@ -26,10 +26,7 @@ class UpdateApplicationRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'name' => 'required',
-                'created_at' => 'required',
-                'updated_at' => 'required',
-                'deleted_at' => 'required'
+            'name' => 'required'
         ];
         
         return $rules;
