@@ -9,16 +9,16 @@ String.prototype.format = function () {
 
 const parseNumber = (data, c=2, d=".", t=",") => {
     return parseInt(String(data).split(t).join(''));
-}
+};
 
 const formatNumber = (data, c=2, d=".", t=",") => {
     return (data).toFixed(c).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,");
-}
+};
 
 const showNotificationFromResponse = (resp, time=5000, successTitle = 'Thành công!', errorTitle = 'Thất bại!') => {
     if (resp.success) toastr.success(resp.message, successTitle, {timeOut: time})
     else toastr.error(resp.message, errorTitle, {timeOut: time});
-}
+};
 
 const showNotificationFromError = (error, time=5000, errorTitle = 'Có lỗi xảy ra!') => {
     switch (error.status) {
@@ -28,21 +28,21 @@ const showNotificationFromError = (error, time=5000, errorTitle = 'Có lỗi x�
         default:
             toastr.error(error, errorTitle, {timeOut: time});
     }
-}
+};
 
-const defaultOnBeforeSend = () => {}
+const defaultOnBeforeSend = () => {};
 
-const defaultOnCompleted = () => {}
+const defaultOnCompleted = () => {};
 
 const defaultOnSuccess = (resp, table = null, modal = null) => {
     showNotificationFromResponse(resp);
     if (table) table.ajax.reload();
     if (modal) modal.modal('hide');
-}
+};
 
 const defaultOnError = (error) => {
     showNotificationFromError(error);
-}
+};
 
 const defaultAjaxOptions = {
     type: 'get',
@@ -53,14 +53,14 @@ const defaultAjaxOptions = {
     table: null,
     data: {},
     modal: null,
-}
+};
 
 const mergeAjaxOptions = (options, defaultAjaxOptions) => {
     return {
         ...defaultAjaxOptions,
         ...options
     }
-}
+};
 
 const sendAjax = (url, data, type = 'get', options = null) => {
     const ajaxOptions = {
@@ -107,7 +107,7 @@ const sendFormAjax = (jQueryForm, options = null) => {
         error: options.onError,
         complete: options.onCompleted
     });
-}
+};
 
 const resetForm = (form) => {
     form.find('input').each(function (index, ele) {
@@ -127,45 +127,60 @@ const resetForm = (form) => {
     });
 };
 
+const getValueByAttr = (data, attrs) => {
+    let res = null;
+    attrs.map((attr) => {
+        if (res === null) res = data[attr];
+        else {
+            if (res !== undefined) res = res[attr];
+        }
+    });
+    return res;
+};
+
+const fillData = (form, data, htmlType, handler) => {
+    form.find(htmlType).each(function (index, ele) {
+        let jqueryObj = $(ele);
+        if (jqueryObj[0].hasAttribute('data-column')) {
+            let dataField =  jqueryObj.attr('data-column');
+            let attrs = dataField.split(".");
+            let value = getValueByAttr(data, attrs);
+            handler(jqueryObj, value);
+        }
+    });
+};
+
+const fillTextAreaFunc = (jqueryObj, value) => {
+    if (jqueryObj.attr('data-role') === 'tagsinput') {
+        jqueryObj.tagsinput('removeAll');
+        jqueryObj.tagsinput('add', value);
+    }
+    else jqueryObj.val(value);
+};
+
+const fillInputFunc = (jqueryObj, value) => {
+    if (jqueryObj.attr('data-role') === 'tagsinput') {
+        jqueryObj.tagsinput('removeAll');
+        jqueryObj.tagsinput('add', value);
+    }
+    else if (jqueryObj.attr('type') === 'checkbox') jqueryObj.prop('checked', value == 1);
+    else jqueryObj.val(value);
+};
+
+const fillSelectFunc = (jqueryObj, value) => {
+    jqueryObj.val(value);
+    if (jqueryObj.hasClass('select2'))
+        jqueryObj.trigger('change');
+};
+
 const fillEditForm = (data, form) => {
     let templateAction = form.data('templateAction');
     form.attr('action', templateAction.format(data.id));
 
-    form.find('textarea').each(function (index, ele) {
-        let jqueryObj = $(ele);
-        if (jqueryObj[0].hasAttribute('data-column')) {
-            let dataField =  jqueryObj.attr('data-column');
-            if (jqueryObj.attr('data-role') === 'tagsinput') {
-                jqueryObj.tagsinput('removeAll');
-                jqueryObj.tagsinput('add', data[dataField]);
-            }
-            else jqueryObj.val(data[dataField]);
-        }
-    });
-
-    form.find('input').each(function (index, ele) {
-        let jqueryObj = $(ele);
-        if (jqueryObj[0].hasAttribute('data-column')) {
-            let dataField =  jqueryObj.attr('data-column');
-            if (jqueryObj.attr('data-role') === 'tagsinput') {
-                jqueryObj.tagsinput('removeAll');
-                jqueryObj.tagsinput('add', data[dataField]);
-            }
-            else if (jqueryObj.attr('type') === 'checkbox') jqueryObj.prop('checked', data[dataField] == 1);
-            else jqueryObj.val(data[dataField]);
-        }
-    });
-
-    form.find('select').each(function (index, ele) {
-        let jqueryObj = $(ele);
-        if (jqueryObj[0].hasAttribute('data-column')) {
-            let dataField =  jqueryObj.attr('data-column');
-            jqueryObj.val(data[dataField]);
-            if (jqueryObj.hasClass('select2'))
-                jqueryObj.trigger('change');
-        }
-    });
-}
+    fillData(form, data, 'textarea', fillTextAreaFunc);
+    fillData(form, data, 'input', fillInputFunc);
+    fillData(form, data, 'select', fillSelectFunc);
+};
 
 const editRecord = (ele, editForm) => {
     let table = $(ele).closest('table').DataTable();
@@ -173,7 +188,7 @@ const editRecord = (ele, editForm) => {
     let data = table.row(row).data();
     fillEditForm(data, editForm);
     editForm.closest('div.modal').modal('show');
-}
+};
 
 const confirmBox = async (options = {}) => {
     let finalOptions = {
@@ -187,7 +202,7 @@ const confirmBox = async (options = {}) => {
         buttons: [finalOptions.cancel, finalOptions.agree],
         dangerMode: true,
     });
-}
+};
 
 const deleteRecord = async (ele, uri, isConfirm=true, options = {}) => {
     let isConfirmed = true;
@@ -203,7 +218,7 @@ const deleteRecord = async (ele, uri, isConfirm=true, options = {}) => {
             table: table
         })
     }
-}
+};
 
 const fnRowCallBack = ( ele, data, rowIndex, selectedRows) => {
     let row = $(ele);
@@ -229,4 +244,4 @@ const initDatatableEvent = (tableSelector, selectedRows) => {
             if ( index !== -1 ) selectedRows.splice(index, 1);
         }
     } );
-}
+};
