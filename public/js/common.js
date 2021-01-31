@@ -112,14 +112,14 @@ const sendFormAjax = (jQueryForm, options = null) => {
 const resetForm = (form) => {
     form.find('input').each(function (index, ele) {
         let jqueryObj = $(ele);
-        let value = jqueryObj.data('defaultValue') || null;
+        let value = jqueryObj.data('defaultValue') !== null ? jqueryObj.data('defaultValue') : null;
 
         if ((!jqueryObj.hasClass('ignore-reset')) &&  (jqueryObj.attr('type') !== 'checkbox')) jqueryObj.val(value);
     });
 
     form.find('select').each(function (index, ele) {
         let jqueryObj = $(ele);
-        let value = jqueryObj.data('defaultValue') || null;
+        let value = jqueryObj.data('defaultValue') !== null ? jqueryObj.data('defaultValue') : null;
         if (!jqueryObj.hasClass('ignore-reset')) {
             jqueryObj.val(value);
             if (jqueryObj.hasClass('select2')) jqueryObj.trigger('change');
