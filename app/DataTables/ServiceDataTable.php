@@ -2,12 +2,12 @@
 
 namespace App\DataTables;
 
-use App\Models\Application;
+use App\Models\Service;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Column;
 
-class ApplicationDataTable extends DataTable
+class ServiceDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -20,16 +20,16 @@ class ApplicationDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
 
         return $dataTable
-            ->addColumn('action', 'applications.datatables_actions');
+            ->addColumn('action', 'services.datatables_actions');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Application $model
+     * @param \App\Models\Service $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Application $model)
+    public function query(Service $model)
     {
         return $model->newQuery();
     }
@@ -46,10 +46,10 @@ class ApplicationDataTable extends DataTable
             ->minifiedAjax()
             ->addAction(['width' => '120px', 'printable' => false, 'title' => __('crud.action')])
             ->parameters([
-                'dom'       => '<"application-toolbar">Bfrtip',
+                'dom'       => '<"service-toolbar">Bfrtip',
                 'order'     => [[0, 'desc']],
                 'rowCallback' => "function( nRow, aData, iDisplayIndex ) {
-                    fnRowCallBack(nRow, aData, iDisplayIndex, applicationSelectedRows);
+                    fnRowCallBack(nRow, aData, iDisplayIndex, serviceSelectedRows);
                  }",
                 'buttons'   => [
                     [
@@ -79,50 +79,7 @@ class ApplicationDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'id' => (new Column([
-                'title' => __('models/application.fields.id'),
-                'data' => 'id',
-                'searchable' => true,
-                'orderable' => true,
-                'exportable' => true,
-                'printable' => false,
-                'attributes' => [
-                    'class' => ''
-                ],
-            ])),
-            'name' => (new Column([
-                'title' => __('models/application.fields.name'),
-                'data' => 'name',
-                'searchable' => true,
-                'orderable' => true,
-                'exportable' => true,
-                'printable' => false,
-                'attributes' => [
-                    'class' => ''
-                ],
-            ])),
-            'description' => (new Column([
-                'title' => __('models/application.fields.description'),
-                'data' => 'description',
-                'searchable' => true,
-                'orderable' => true,
-                'exportable' => true,
-                'printable' => false,
-                'attributes' => [
-                    'class' => ''
-                ],
-            ])),
-            'created_at' => (new Column([
-                'title' => __('models/application.fields.created_at'),
-                'data' => 'created_at',
-                'searchable' => true,
-                'orderable' => true,
-                'exportable' => true,
-                'printable' => false,
-                'attributes' => [
-                    'class' => ''
-                ],
-            ]))
+            
         ];
     }
 
@@ -133,6 +90,6 @@ class ApplicationDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'applications_datatable_' . time();
+        return 'services_datatable_' . time();
     }
 }

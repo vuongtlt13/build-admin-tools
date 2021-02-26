@@ -3,9 +3,9 @@
 namespace App\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Application;
+use App\Models\Service;
 
-class UpdateApplicationRequest extends FormRequest
+class UpdateServiceRequest extends FormRequest
 {
 
     /**
@@ -26,7 +26,7 @@ class UpdateApplicationRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'description' => 'required'
+            
         ];
         
         return $rules;

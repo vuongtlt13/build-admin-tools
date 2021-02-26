@@ -25,3 +25,5 @@ Route::get('/home', 'HomeController@index')->middleware('verified');
 
 
 Route::resource('applications', 'ApplicationController');
+
+Route::resource('services', 'ServiceController');

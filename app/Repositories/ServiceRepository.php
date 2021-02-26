@@ -2,22 +2,22 @@
 
 namespace App\Repositories;
 
-use App\Models\Application;
+use App\Models\Service;
 use App\Repositories\BaseRepository;
 
 /**
- * Class ApplicationRepository
+ * Class ServiceRepository
  * @package App\Repositories
- * @version February 4, 2021, 2:15 pm UTC
+ * @version February 4, 2021, 9:45 am UTC
 */
 
-class ApplicationRepository extends BaseRepository
+class ServiceRepository extends BaseRepository
 {
     /**
      * Configure the Model
      **/
     public function model()
     {
-        return Application::class;
+        return Service::class;
     }
 }
