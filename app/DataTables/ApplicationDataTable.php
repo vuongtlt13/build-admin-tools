@@ -79,46 +79,13 @@ class ApplicationDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'id' => (new Column([
-                'title' => __('models/application.fields.id'),
-                'data' => 'id',
+            'code' => (new Column([
+                'title' => __('models/application.fields.code'),
+                'data' => 'code',
                 'searchable' => true,
-                'orderable' => true,
+                'orderable' => false,
                 'exportable' => true,
-                'printable' => false,
-                'attributes' => [
-                    'class' => ''
-                ],
-            ])),
-            'name' => (new Column([
-                'title' => __('models/application.fields.name'),
-                'data' => 'name',
-                'searchable' => true,
-                'orderable' => true,
-                'exportable' => true,
-                'printable' => false,
-                'attributes' => [
-                    'class' => ''
-                ],
-            ])),
-            'description' => (new Column([
-                'title' => __('models/application.fields.description'),
-                'data' => 'description',
-                'searchable' => true,
-                'orderable' => true,
-                'exportable' => true,
-                'printable' => false,
-                'attributes' => [
-                    'class' => ''
-                ],
-            ])),
-            'created_at' => (new Column([
-                'title' => __('models/application.fields.created_at'),
-                'data' => 'created_at',
-                'searchable' => true,
-                'orderable' => true,
-                'exportable' => true,
-                'printable' => false,
+                'printable' => true,
                 'attributes' => [
                     'class' => ''
                 ],

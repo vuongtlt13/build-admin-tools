@@ -15,7 +15,9 @@
 
     <script type="text/javascript">
         var applicationSelectedRows = [];
-        var applicationTable = $('#application-datatable').DataTable();
+        setTimeout(() => {
+            window.applicationTable = window.LaravelDataTables["application-datatable"];
+        }, 10);
     </script>
 
     <script type="text/javascript">

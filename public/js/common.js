@@ -21,13 +21,17 @@ const showNotificationFromResponse = (resp, time=5000, successTitle = 'Thành c�
 };
 
 const showNotificationFromError = (error, time=5000, errorTitle = 'Có lỗi xảy ra!') => {
+    let errorMessage = "";
     switch (error.status) {
         case BAD_PAYLOAD:
-            toastr.error(error.responseText, 'Dữ liệu nhập vào không hợp lệ!', {timeOut: time});
+            errorMessage = error.message;
+            errorTitle = 'Dữ liệu nhập vào không hợp lệ!';
             break;
         default:
-            toastr.error(error, errorTitle, {timeOut: time});
+            let responseJson = error.responseJSON;
+            errorMessage = (responseJson && responseJson.message) ? responseJson.message : error.responseText;
     }
+    toastr.error(errorMessage, errorTitle, {timeOut: time});
 };
 
 const defaultOnBeforeSend = () => {};

@@ -26,7 +26,7 @@ class UpdateApplicationRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'description' => 'required'
+            'code' => 'required|string|min:3|max:50'
         ];
         
         return $rules;
