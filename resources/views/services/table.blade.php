@@ -15,7 +15,9 @@
 
     <script type="text/javascript">
         var serviceSelectedRows = [];
-        var serviceTable = $('#service-datatable').DataTable();
+        setTimeout(() => {
+            window.serviceTable = window.LaravelDataTables["service-datatable"];
+        }, 10);
     </script>
 
     <script type="text/javascript">

@@ -1,8 +1,8 @@
 
 <li class="nav-item">
-    <a href="{{route('applications.index')}}" class="nav-link {{ Request::is('applications*') ? 'active' : '' }}" style="padding-left: 1rem">
+    <a href="{{route('services.index')}}" class="nav-link {{ Request::is('services*') ? 'active' : '' }}" style="padding-left: 1rem">
         <i class="fas fa-circle nav-icon"></i>
-        <p>Application</p>
+        <p>service</p>
     </a>
 </li>
 
