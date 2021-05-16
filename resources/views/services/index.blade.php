@@ -6,7 +6,7 @@
             @lang('models/service.plural')
         </h1>
         <h1 class="float-right">
-            <button type="button" class="btn btn-block btn-primary float-right btnAddNewservice"
+            <button type="button" class="btn btn-block btn-primary float-right btnAddNewService"
                     style="margin-top: -10px;margin-bottom: 5px">@lang('crud.add_new')</button>
         </h1>
     </section>
@@ -19,7 +19,7 @@
 @push('scripts')
     <script type="text/javascript">
         $( document ).ready(function() {
-            $('.btnAddNewservice').on('click', (evt) => {
+            $('.btnAddNewService').on('click', (evt) => {
                 resetForm(serviceCreateForm);
                 serviceCreateModal.modal('show');
             });

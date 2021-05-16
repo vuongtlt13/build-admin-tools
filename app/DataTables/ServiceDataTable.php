@@ -79,7 +79,39 @@ class ServiceDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            
+            'application_id' => (new Column([
+                'title' => __('models/service.fields.application_id'),
+                'data' => 'application_id',
+                'searchable' => true,
+                'orderable' => false,
+                'exportable' => false,
+                'printable' => false,
+                'attributes' => [
+                    'class' => ''
+                ],
+            ])),
+            'name' => (new Column([
+                'title' => __('models/service.fields.name'),
+                'data' => 'name',
+                'searchable' => true,
+                'orderable' => false,
+                'exportable' => true,
+                'printable' => true,
+                'attributes' => [
+                    'class' => ''
+                ],
+            ])),
+            'is_active' => (new Column([
+                'title' => __('models/service.fields.is_active'),
+                'data' => 'is_active',
+                'searchable' => false,
+                'orderable' => false,
+                'exportable' => true,
+                'printable' => true,
+                'attributes' => [
+                    'class' => ''
+                ],
+            ]))
         ];
     }
 

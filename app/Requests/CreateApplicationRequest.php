@@ -26,7 +26,7 @@ class CreateApplicationRequest extends FormRequest
     public function rules()
     {
         return [
-            'code' => 'required|string|min:3|max:50'
+            'code' => 'required|string|max:25'
         ];
     }
 }

@@ -9,7 +9,8 @@
     <title>{{ config('app.name') }}</title>
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="/vendor/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bbootstrap 4 -->
@@ -129,6 +130,10 @@
     <script src="/vendor/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <!-- Select2 -->
     <script src="/vendor/plugins/select2/js/select2.full.min.js"></script>
+
+    <!-- Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" integrity="sha512-RXf+QSDCUQs5uwRKaDoXt55jygZZm2V++WUZduaU/Ui/9EGp3f/2KZVahFZBKGH0s774sd3HmrhUy+SgOFQLVQ==" crossorigin="anonymous"></script>
+
     <!-- AdminLTE App -->
     <script src="/vendor/dist/js/adminlte.js"></script>
     <!-- Common -->

@@ -26,7 +26,9 @@ class CreateServiceRequest extends FormRequest
     public function rules()
     {
         return [
-            
+            'application_id' => 'required',
+            'name' => 'required|string|max:55',
+            'is_active' => 'required|boolean|in:1,0'
         ];
     }
 }

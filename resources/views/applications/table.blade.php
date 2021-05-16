@@ -15,13 +15,12 @@
 
     <script type="text/javascript">
         var applicationSelectedRows = [];
-        setTimeout(() => {
-            window.applicationTable = window.LaravelDataTables["application-datatable"];
-        }, 10);
+        var applicationTable = null;
     </script>
 
     <script type="text/javascript">
         $(document).ready(function() {
+            applicationTable = window.LaravelDataTables["application-datatable"];
             initDatatableEvent('#application-datatable', applicationSelectedRows);
         });
     </script>
